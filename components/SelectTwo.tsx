@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { CardForm } from '@/components/WallSheet';
 import { CardCalc } from '@/components/CardCalc';
 
 const SelectTwo = () => {
@@ -22,7 +21,6 @@ const SelectTwo = () => {
 			</select>
 
 			{selectedOption === 'option1' && <CardCalc />}
-			{selectedOption === 'option2' && <CardForm />}
 		</div>
 	);
 };
