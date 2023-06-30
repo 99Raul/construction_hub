@@ -116,7 +116,9 @@ export function CardCalc() {
 			</CardContent>
 			<CardFooter className='flex justify-between'>
 				<Button onClick={calculateVolume}>Calculate</Button>
-				<Button onClick={resetForm}>Reset</Button>
+				<Button onClick={resetForm} className='bg-red-400'>
+					Reset
+				</Button>
 			</CardFooter>
 		</Card>
 	);

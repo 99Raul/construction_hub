@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Listbox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
+
 export function WallSheet() {
 	const [totalSquareFootage, setTotalSquareFootage] = useState(0);
 	const [pricePerSheet, setPricePerSheet] = useState(0);
@@ -167,7 +168,9 @@ export function WallSheet() {
 			</CardContent>
 			<CardFooter className='flex justify-between'>
 				<Button onClick={calculateSheetsAndCost}>Calculate</Button>
-				<Button onClick={resetForm}>Reset</Button>
+				<Button onClick={resetForm} className='bg-red-400'>
+					Reset
+				</Button>
 			</CardFooter>
 		</Card>
 	);

@@ -12,6 +12,12 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+	HoverCard,
+	HoverCardContent,
+	HoverCardTrigger,
+} from '@/components/ui/hover-card';
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
 
 const TileCalculator: React.FC = () => {
 	const [length, setLength] = useState<number>(0);
@@ -26,18 +32,16 @@ const TileCalculator: React.FC = () => {
 	const [totalTiles, setTotalTiles] = useState<number>(0);
 	const [circleCoverage, setCircleCoverage] = useState<number>(0);
 
+	const [costPerTile, setCostPerTile] = useState<number>(0);
+	const [customTileCost, setCustomTileCost] = useState<number>(0);
+	const [totalCost, setTotalCost] = useState<number>(0);
+
 	const calculateSquareCoverage = () => {
 		const totalCoverage = (
 			(isInches ? length * width : length * width * 144) / 144
 		).toFixed(2);
 		setCoverage(parseFloat(totalCoverage));
 	};
-
-	// const calculateRoundCoverage = () => {
-	// 	const radius = isInches ? diameter / 2 : (diameter / 2) * 12;
-	// 	const totalCoverage = Math.ceil(radius * radius * Math.PI);
-	// 	setCoverage(totalCoverage);
-	// };
 
 	const calculateRoundCoverage2 = () => {
 		const radius = isInches2 ? diameter / 2 : (diameter / 2) * 12;
@@ -61,6 +65,36 @@ const TileCalculator: React.FC = () => {
 	};
 	const handleUnitChange2 = (event: ChangeEvent<HTMLInputElement>) => {
 		setIsInches2(event.target.value === 'inches');
+	};
+
+	// const handleTotalTilesChange = (event: ChangeEvent<HTMLInputElement>) => {
+	// 	setTotalTiles(parseInt(event.target.value));
+	// };
+
+	const handleCustomTileCostChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setCustomTileCost(parseFloat(event.target.value));
+	};
+
+	const calculateTotalCost = () => {
+		const cost = totalTiles * customTileCost;
+		setTotalCost(cost);
+	};
+
+	const resetCalculator = () => {
+		setLength(0);
+		setWidth(0);
+		setDiameter(0);
+		setIsInches(true);
+		setIsInches2(true);
+		setCoverage(0);
+		setTileArea(0);
+		setTileCount(0);
+		setOverage(0);
+		setTotalTiles(0);
+		setCircleCoverage(0);
+		setCostPerTile(0);
+		setCustomTileCost(0);
+		setTotalCost(0);
 	};
 
 	return (
@@ -124,9 +158,30 @@ const TileCalculator: React.FC = () => {
 							</div>
 							<div>
 								<div className='flex flex-col space-y-1.5'>
-									<Label htmlFor='name'>
-										Tile Area &#123; in square inches &#125;:
-									</Label>
+									<div className='flex flex-row'>
+										<Label htmlFor='name' className='mt-1 mr-3'>
+											Tile Area &#123; in square inches &#125;:
+										</Label>
+										<HoverCard>
+											<HoverCardTrigger asChild>
+												<InformationCircleIcon className='h-5 w-5' />
+											</HoverCardTrigger>
+											<HoverCardContent className='w-80'>
+												<div className='flex justify-between space-x-4'>
+													<div className='space-y-1'>
+														<p className='text-sm'>
+															Square inches = width x length
+														</p>
+														<p className='text-sm'>
+															You can calculate the square inches of an area by
+															measuring the length and width in inches.
+														</p>
+													</div>
+												</div>
+											</HoverCardContent>
+										</HoverCard>
+									</div>
+
 									<Input
 										type='number'
 										value={tileArea}
@@ -158,6 +213,37 @@ const TileCalculator: React.FC = () => {
 											</span>
 										</div>
 									)}
+								</>
+							)}
+							{totalTiles > 0 && (
+								<>
+									<div className='flex flex-col space-y-3'>
+										{/* <Label htmlFor='totalTiles'>Total Tiles:</Label>
+										<Input
+											type='number'
+											id='totalTiles'
+											value={totalTiles}
+											onChange={handleTotalTilesChange}
+										/> */}
+
+										<Label htmlFor='customTileCost'>Custom Tile Cost $:</Label>
+										<Input
+											type='number'
+											id='customTileCost'
+											value={customTileCost}
+											onChange={handleCustomTileCostChange}
+										/>
+
+										<Button onClick={calculateTotalCost}>
+											Calculate Total Cost
+										</Button>
+									</div>
+									<div className='border px-4 py-4 font-mono text-base font-semibold'>
+										Total Cost: {''}
+										<span className='text-green-500 font-semibold font-mono text-base'>
+											${totalCost}
+										</span>
+									</div>
 								</>
 							)}
 						</>
@@ -202,6 +288,9 @@ const TileCalculator: React.FC = () => {
 							</div>
 						</div>
 					)}
+					<Button onClick={resetCalculator} className='bg-red-400'>
+						Reset
+					</Button>
 				</div>
 			</CardContent>
 		</Card>
