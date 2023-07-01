@@ -12,15 +12,15 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+
 import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from '@/components/ui/hover-card';
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from '@/components/ui/popover';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
-// import { isNull } from 'util';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Terminal, Waves } from 'lucide-react';
+// import { Terminal, Waves } from 'lucide-react';
 
 const TileCalculator: React.FC = () => {
 	const [length, setLength] = useState<number | null>(null);
@@ -173,6 +173,7 @@ const TileCalculator: React.FC = () => {
 						<Input
 							type='number'
 							step='any'
+							placeholder='enter length'
 							value={length !== null ? length : ''}
 							onChange={handleChangeLength}
 						/>
@@ -183,6 +184,7 @@ const TileCalculator: React.FC = () => {
 							<Input
 								type='number'
 								step='any'
+								placeholder='enter width'
 								value={width !== null ? width : ''}
 								onChange={handleChangeWidth}
 							/>
@@ -206,24 +208,26 @@ const TileCalculator: React.FC = () => {
 										<Label htmlFor='name' className='mt-1 mr-3'>
 											Tile Area &#123; in square inches &#125;:
 										</Label>
-										<HoverCard>
-											<HoverCardTrigger asChild>
-												<InformationCircleIcon className='h-5 w-5' />
-											</HoverCardTrigger>
-											<HoverCardContent className='w-80'>
-												<div className='flex justify-between space-x-4'>
-													<div className='space-y-1'>
-														<p className='text-sm'>
+										<Popover>
+											<PopoverTrigger asChild>
+												<InformationCircleIcon className='h-5 w-5'>
+													<Button variant='outline'>Open popover</Button>
+												</InformationCircleIcon>
+											</PopoverTrigger>
+											<PopoverContent className='w-80'>
+												<div className='grid gap-4'>
+													<div className='space-y-2'>
+														<h4 className='font-medium leading-none'>
 															Square inches = width x length
-														</p>
-														<p className='text-sm'>
+														</h4>
+														<p className='text-sm text-muted-foreground'>
 															You can calculate the square inches of an area by
 															measuring the length and width in inches.
 														</p>
 													</div>
 												</div>
-											</HoverCardContent>
-										</HoverCard>
+											</PopoverContent>
+										</Popover>
 									</div>
 									{!isCalculated && (
 										<Alert variant={'destructive'}>
@@ -325,6 +329,7 @@ const TileCalculator: React.FC = () => {
 						<Input
 							type='number'
 							step='any'
+							placeholder='enter diameter'
 							value={diameter !== null ? diameter : ''}
 							onChange={handleChangeDiameter}
 						/>
