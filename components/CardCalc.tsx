@@ -145,10 +145,10 @@ export function CardCalc() {
 										name='lengthUnit'
 										value={lengthUnit}
 										onChange={handleUnitChange}
-										className='bg-indigo-500 rounded-sm ml-2 border-gray-400 font-semibold'
+										className='bg-blue-500 rounded-sm ml-2 border-gray-400 font-semibold appearance:none'
 									>
 										<option value='feet'>Ft</option>
-										<option value='inches'>In</option>
+										<option value='inches'>in</option>
 										<option value='meters'>Meters</option>
 										<option value='yards'>Yards</option>
 									</select>
@@ -174,7 +174,7 @@ export function CardCalc() {
 										name='widthUnit'
 										value={widthUnit}
 										onChange={handleUnitChange}
-										className='bg-indigo-500 rounded-sm ml-2 border-gray-400 font-semibold'
+										className='bg-blue-500 rounded-sm ml-2 border-gray-400 font-semibold'
 									>
 										<option value='feet'>Ft</option>
 										<option value='inches'>In</option>

@@ -1,7 +1,6 @@
 'use client';
 import { useState, ChangeEvent } from 'react';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import {
 	Card,
@@ -20,7 +19,6 @@ import {
 } from '@/components/ui/popover';
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-// import { Terminal, Waves } from 'lucide-react';
 
 const TileCalculator: React.FC = () => {
 	const [length, setLength] = useState<number | null>(null);

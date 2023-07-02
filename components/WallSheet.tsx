@@ -18,9 +18,9 @@ export function WallSheet() {
 	const [totalSquareFootage, setTotalSquareFootage] = useState('');
 	const [pricePerSheet, setPricePerSheet] = useState('');
 	const [sheetSize, setSheetSize] = useState<'4x8' | '4x12'>('4x8');
-	const [extraAndWaste, setExtraAndWaste] = useState('1.1');
+	const [extraAndWaste, setExtraAndWaste] = useState('10');
 	const [numberOfSheets, setNumberOfSheets] = useState('');
-	const [totalCost, setTotalCost] = useState('0');
+	const [totalCost, setTotalCost] = useState('');
 	const [taxRate, setTaxRate] = useState('');
 	const [finalCost, setFinalCost] = useState('');
 
@@ -34,8 +34,10 @@ export function WallSheet() {
 	const calculateSheetsAndCost = () => {
 		const totalSqFt = parseFloat(totalSquareFootage);
 		const priceSheet = parseFloat(pricePerSheet);
-		// const extraWaste = extraAndWaste ? parseFloat(extraAndWaste) : 1; // Use 1 as the default value if extraAndWaste is not provided
-		const extraWaste = parseFloat(extraAndWaste) || 1; // Use 1 as the default value if extraAndWaste is not provided or NaN
+
+		// const extraWaste = parseFloat(extraAndWaste) || 1; // Use 1 as the default value if extraAndWaste is not provided or NaN
+		const extraWastePercentage = parseFloat(extraAndWaste) || 0; // Use 0 as the default value if extraAndWaste is not provided or NaN
+		const extraWasteMultiplier = 1 + extraWastePercentage / 100; // Calculate the multiplier from the percentage
 
 		const tax = parseFloat(taxRate);
 
@@ -43,9 +45,9 @@ export function WallSheet() {
 		let cost = 0;
 
 		if (sheetSize === '4x8') {
-			sheetCount = Math.ceil((totalSqFt / 32) * extraWaste);
+			sheetCount = Math.ceil((totalSqFt / 32) * extraWasteMultiplier);
 		} else if (sheetSize === '4x12') {
-			sheetCount = Math.ceil((totalSqFt / 48) * extraWaste);
+			sheetCount = Math.ceil((totalSqFt / 48) * extraWasteMultiplier);
 		}
 
 		cost = sheetCount * priceSheet;
@@ -57,17 +59,11 @@ export function WallSheet() {
 		setTotalCost(cost.toFixed(2));
 		setFinalCost(totalCostWithTax);
 
-		// Check for error condition
-		// if (isNaN(extraWaste) || extraWaste === 0 || extraAndWaste.trim() === '') {
-		// 	setExtraAndWasteError(true);
-		// } else {
-		// 	setExtraAndWasteError(false);
-		// }
 
 		const errors = {
 			totalSquareFootage: isNaN(totalSqFt) || totalSqFt <= 0,
 			pricePerSheet: isNaN(priceSheet) || priceSheet <= 0,
-			extraAndWaste: isNaN(extraWaste) || extraWaste === 0,
+			extraAndWaste: isNaN(extraWastePercentage) || extraWastePercentage < 0,
 			taxRate: isNaN(tax) || tax < 0,
 		};
 
@@ -178,7 +174,7 @@ export function WallSheet() {
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>
-								Extra/Waste Multiplier &#123;change to liking&#125;
+								Extra/Waste % &#123;change to liking&#125;
 							</Label>
 							<Input
 								placeholder='enter extra'
