@@ -11,8 +11,16 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Listbox } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 export function WallSheet() {
 	const [totalSquareFootage, setTotalSquareFootage] = useState('');
@@ -59,7 +67,6 @@ export function WallSheet() {
 		setTotalCost(cost.toFixed(2));
 		setFinalCost(totalCostWithTax);
 
-
 		const errors = {
 			totalSquareFootage: isNaN(totalSqFt) || totalSqFt <= 0,
 			pricePerSheet: isNaN(priceSheet) || priceSheet <= 0,
@@ -68,6 +75,14 @@ export function WallSheet() {
 		};
 
 		setInputErrors(errors);
+	};
+
+	const handleSheetChange = (value: string) => {
+		if (value === '4x8') {
+			setSheetSize(value);
+		} else if (value === '4x12') {
+			setSheetSize(value);
+		}
 	};
 
 	const resetForm = () => {
@@ -138,39 +153,20 @@ export function WallSheet() {
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>Sheet Size</Label>
-							<Listbox value={sheetSize} onChange={(e) => setSheetSize(e)}>
-								<Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-black'>
-									{sheetSize}
-									<span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
-										<ChevronUpDownIcon
-											className='h-5 w-5 text-gray-600'
-											aria-hidden='true'
-										/>
-									</span>
-								</Listbox.Button>
-								<Listbox.Options className='relative mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-black '>
-									<Listbox.Option
-										value='4x8'
-										className='relative cursor-default select-none py-2 pl-5 pr-4 hover:bg-gray-400 dark:hover:bg-gray-400 dark:hover:text-black'
-									>
-										4 x 8{' '}
-									</Listbox.Option>
-									<hr className='h-px bg-gray-200 border-0 dark:bg-gray-700'></hr>
-									<Listbox.Option
-										value='4x12'
-										className='relative cursor-default select-none py-2 pl-5 pr-4 hover:bg-gray-400 dark:hover:bg-gray-400 dark:hover:text-black'
-									>
-										4 x 12
-									</Listbox.Option>
-								</Listbox.Options>
-							</Listbox>
-							{/* <select
+							<Select
+								onValueChange={(value) => handleSheetChange(value)}
 								value={sheetSize}
-								onChange={(e) => setSheetSize(e.target.value as '4x8' | '4x12')}
 							>
-								<option value='4x8'>4 x8 </option>
-								<option value='4x12'>4x12 </option>
-							</select> */}
+								<SelectTrigger className=''>
+									<SelectValue placeholder='Ft' />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectItem value='4x8'>4x8</SelectItem>
+										<SelectItem value='4x12'>4x12</SelectItem>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>

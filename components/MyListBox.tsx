@@ -5,6 +5,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { WallSheet } from '@/components/WallSheet';
 import { CardCalc } from '@/components/CardCalc';
 import TileCalc from '@/components/TileCalc';
+import FlooringCalc from '@/components/FlooringCalc';
 import Balancer from 'react-wrap-balancer';
 
 type FruitOption = {
@@ -20,6 +21,11 @@ const fruitOptions: FruitOption[] = [
 		label: 'Drywall Material Estimate',
 		value: 'banana',
 		name: 'Drywall Material Estimate',
+	},
+	{
+		label: 'Flooring Material Estimate',
+		value: 'carrot',
+		name: 'Flooring Material Estimate',
 	},
 	{
 		label: 'Tile Material Estimate',
@@ -51,7 +57,9 @@ export default function MyListBox() {
 			<Listbox value={selectedOption} onChange={handleOptionChange}>
 				<div className='relative mt-1'>
 					<Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
-						<span className='block truncate text-black font-medium'>{selected.name}</span>
+						<span className='block truncate text-black font-medium'>
+							{selected.name}
+						</span>
 						<span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
 							<ChevronUpDownIcon
 								className='h-5 w-5 text-gray-600'
@@ -75,7 +83,6 @@ export default function MyListBox() {
 										}`
 									}
 									value={fruit.value}
-									
 								>
 									{({ selected }) => (
 										<>
@@ -104,6 +111,7 @@ export default function MyListBox() {
 				{selectedOption?.value === 'apple' && <CardCalc />}
 				{selectedOption?.value === 'banana' && <WallSheet />}
 				{selectedOption?.value === 'orange' && <TileCalc />}
+				{selectedOption?.value === 'carrot' && <FlooringCalc />}
 			</div>
 		</div>
 	);

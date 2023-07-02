@@ -11,6 +11,15 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 export function CardCalc() {
 	const [length, setLength] = useState('');
@@ -28,10 +37,22 @@ export function CardCalc() {
 	const [lengthUnit, setLengthUnit] = useState('feet');
 	const [widthUnit, setWidthUnit] = useState('feet');
 	const [depthUnit, setDepthUnit] = useState('feet');
+	const [totalVolumeCubicMeters, setTotalVolumeCubicMeters] = useState('');
 
-	const handleUnitChange = (e: ChangeEvent<HTMLSelectElement>) => {
-		const { name, value } = e.target;
+	// works with normal select / not with shad ui select
+	// const handleUnitChange = (e: ChangeEvent<HTMLSelectElement>) => {
+	// 	const { name, value } = e.target;
 
+	// 	if (name === 'lengthUnit') {
+	// 		setLengthUnit(value);
+	// 	} else if (name === 'widthUnit') {
+	// 		setWidthUnit(value);
+	// 	} else if (name === 'depthUnit') {
+	// 		setDepthUnit(value);
+	// 	}
+	// };
+
+	const handleUnitChange = (value: string, name: string) => {
 		if (name === 'lengthUnit') {
 			setLengthUnit(value);
 		} else if (name === 'widthUnit') {
@@ -74,6 +95,7 @@ export function CardCalc() {
 			width: '',
 			depth: '',
 		});
+		setTotalVolumeCubicMeters('');
 	};
 
 	const calculateVolume = () => {
@@ -124,8 +146,12 @@ export function CardCalc() {
 		let totalV = v + v * 0.1; // add 10% waste material
 		totalV = Math.round(totalV * 100) / 100; // round to 2 decimal places
 
+		let vCubicMeters = v / 1.30795; // calculate volume in cubic meters
+		vCubicMeters = Math.round(vCubicMeters * 100) / 100; // round to 2 decimal places
+
 		setVolume(v.toString());
 		setTotalVolume(totalV.toString());
+		setTotalVolumeCubicMeters(vCubicMeters.toString()); // set total volume in cubic meters
 	};
 
 	return (
@@ -139,9 +165,9 @@ export function CardCalc() {
 					<div className='grid w-full items-center gap-4'>
 						<div className='flex flex-col space-y-1.5'>
 							<div className='flex flex-row'>
-								<Label htmlFor='name'>
+								<Label htmlFor='name' className='mt-2'>
 									Length
-									<select
+									{/* <select
 										name='lengthUnit'
 										value={lengthUnit}
 										onChange={handleUnitChange}
@@ -151,8 +177,26 @@ export function CardCalc() {
 										<option value='inches'>in</option>
 										<option value='meters'>Meters</option>
 										<option value='yards'>Yards</option>
-									</select>
+									</select> */}
 								</Label>
+
+								<Select
+									onValueChange={(value) =>
+										handleUnitChange(value, 'lengthUnit')
+									}
+									value={lengthUnit}
+								>
+									<SelectTrigger className='w-[80px] h-[30px] ml-4'>
+										<SelectValue placeholder='Ft' />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectGroup>
+											<SelectItem value='feet'>Ft</SelectItem>
+											<SelectItem value='inches'>in</SelectItem>
+											<SelectItem value='meters'>meters</SelectItem>
+										</SelectGroup>
+									</SelectContent>
+								</Select>
 							</div>
 							<Input
 								name='length'
@@ -168,9 +212,9 @@ export function CardCalc() {
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<div className='flex flex-row'>
-								<Label htmlFor='name'>
+								<Label htmlFor='name' className='mt-2'>
 									Width
-									<select
+									{/* <select
 										name='widthUnit'
 										value={widthUnit}
 										onChange={handleUnitChange}
@@ -180,8 +224,25 @@ export function CardCalc() {
 										<option value='inches'>In</option>
 										<option value='meters'>Meters</option>
 										<option value='yards'>Yards</option>
-									</select>
+									</select> */}
 								</Label>
+								<Select
+									onValueChange={(value) =>
+										handleUnitChange(value, 'widthUnit')
+									}
+									value={widthUnit}
+								>
+									<SelectTrigger className='w-[80px] h-[30px] ml-4'>
+										<SelectValue placeholder='Ft' />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectGroup>
+											<SelectItem value='feet'>Ft</SelectItem>
+											<SelectItem value='inches'>in</SelectItem>
+											<SelectItem value='meters'>meters</SelectItem>
+										</SelectGroup>
+									</SelectContent>
+								</Select>
 							</div>
 							<Input
 								name='width'
@@ -195,7 +256,29 @@ export function CardCalc() {
 							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>Depth In</Label>
+							<div className='flex flex-row'>
+								<Label htmlFor='name' className='mt-2'>
+									Depth Inches
+								</Label>
+								{/* <Select
+									onValueChange={(value) =>
+										handleUnitChange(value, 'depthUnit')
+									}
+									value={depthUnit}
+								>
+									<SelectTrigger className='w-[80px] h-[30px] ml-4'>
+										<SelectValue placeholder='in' />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectGroup>
+											<SelectItem value='inches'>in</SelectItem>
+											<SelectItem value='feet'>Ft</SelectItem>
+											<SelectItem value='meters'>meters</SelectItem>
+											<SelectItem value='yards'>yards</SelectItem>
+										</SelectGroup>
+									</SelectContent>
+								</Select> */}
+							</div>
 							<Input
 								name='depth'
 								placeholder='enter depth'
@@ -222,6 +305,12 @@ export function CardCalc() {
 							<span className='text-red-400'>&#123;with waste 10%&#125;</span>:
 							<h2 className='text-green-600 font-semibold font-mono text-base'>
 								{totalVolume}
+							</h2>
+						</div>
+						<div className='border px-4 py-4 font-mono text-sm '>
+							Total Meters
+							<h2 className='text-green-600 font-semibold font-mono text-base'>
+								{totalVolumeCubicMeters}
 							</h2>
 						</div>
 					</div>
