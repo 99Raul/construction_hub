@@ -68,8 +68,6 @@ const FlooringCalculator: React.FC = ({}) => {
 		setInputErrors({});
 	};
 
-    
-
 	const resetFields = () => {
 		setLength('');
 		setWidth('');
@@ -79,6 +77,8 @@ const FlooringCalculator: React.FC = ({}) => {
 		setTilesPerBox('');
 		setReset(true);
 		setInputErrors({});
+		setTotalTilesNeeded(0); // Reset the output values
+		setBoxesNeeded(0); // Reset the output values
 	};
 
 	return (

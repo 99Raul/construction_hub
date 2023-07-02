@@ -6,7 +6,6 @@ import { WallSheet } from '@/components/WallSheet';
 import { CardCalc } from '@/components/CardCalc';
 import TileCalc from '@/components/TileCalc';
 import FlooringCalc from '@/components/FlooringCalc';
-import Balancer from 'react-wrap-balancer';
 
 type FruitOption = {
 	label?: string;
@@ -50,9 +49,7 @@ export default function MyListBox() {
 	return (
 		<div className='w-full'>
 			<p className='mt-2 mb-2  text-gray-500 md:text-xl'>
-				<Balancer>
-					Select between different calculators for your project
-				</Balancer>
+				Choose calculators for your project
 			</p>
 			<Listbox value={selectedOption} onChange={handleOptionChange}>
 				<div className='relative mt-1'>

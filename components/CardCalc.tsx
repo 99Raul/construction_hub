@@ -214,17 +214,6 @@ export function CardCalc() {
 							<div className='flex flex-row'>
 								<Label htmlFor='name' className='mt-2'>
 									Width
-									{/* <select
-										name='widthUnit'
-										value={widthUnit}
-										onChange={handleUnitChange}
-										className='bg-blue-500 rounded-sm ml-2 border-gray-400 font-semibold'
-									>
-										<option value='feet'>Ft</option>
-										<option value='inches'>In</option>
-										<option value='meters'>Meters</option>
-										<option value='yards'>Yards</option>
-									</select> */}
 								</Label>
 								<Select
 									onValueChange={(value) =>
@@ -260,24 +249,6 @@ export function CardCalc() {
 								<Label htmlFor='name' className='mt-2'>
 									Depth Inches
 								</Label>
-								{/* <Select
-									onValueChange={(value) =>
-										handleUnitChange(value, 'depthUnit')
-									}
-									value={depthUnit}
-								>
-									<SelectTrigger className='w-[80px] h-[30px] ml-4'>
-										<SelectValue placeholder='in' />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectGroup>
-											<SelectItem value='inches'>in</SelectItem>
-											<SelectItem value='feet'>Ft</SelectItem>
-											<SelectItem value='meters'>meters</SelectItem>
-											<SelectItem value='yards'>yards</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select> */}
 							</div>
 							<Input
 								name='depth'
