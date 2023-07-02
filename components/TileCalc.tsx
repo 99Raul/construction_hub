@@ -25,8 +25,6 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 const TileCalculator: React.FC = () => {
 	const [length, setLength] = useState<number | null>(null);
 	const [width, setWidth] = useState<number | null>(null);
-	// const [length, setLength] = useState<number>(0);
-	// const [width, setWidth] = useState<number>(0);
 	const [diameter, setDiameter] = useState<number | null>(null);
 	const [isInches, setIsInches] = useState<boolean>(true);
 	const [isInches2, setIsInches2] = useState<boolean>(true);
@@ -109,12 +107,19 @@ const TileCalculator: React.FC = () => {
 		setIsInches2(event.target.value === 'inches');
 	};
 
-	// const handleTotalTilesChange = (event: ChangeEvent<HTMLInputElement>) => {
-	// 	setTotalTiles(parseInt(event.target.value));
-	// };
-
+	// works but cannot input decimals
 	const handleCustomTileCostChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setCustomTileCost(parseFloat(event.target.value));
+	};
+
+	// trying out different function to allow user to enter decimals on cost/ works on chrome but safari cant seem to enter decimals
+	const handleCustomTileCostChange2 = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		const parsedValue = parseFloat(value);
+
+		if (!isNaN(parsedValue) || value === '') {
+			setCustomTileCost(parsedValue);
+		}
 	};
 
 	const calculateTotalCost = () => {
@@ -281,12 +286,21 @@ const TileCalculator: React.FC = () => {
 								<>
 									<div className='flex flex-col space-y-3'>
 										<Label htmlFor='customTileCost'>Custom Tile Cost $:</Label>
-										<Input
+										{/* <Input
 											type='number'
 											step='any'
 											id='customTileCost'
 											value={customTileCost}
 											onChange={handleCustomTileCostChange}
+										/> */}
+										<Input
+											type='number'
+											step='any'
+											id='customTileCost'
+											value={
+												customTileCost !== null ? customTileCost.toString() : ''
+											}
+											onChange={handleCustomTileCostChange2}
 										/>
 
 										<Button onClick={calculateTotalCost}>

@@ -14,47 +14,75 @@ import { Label } from '@/components/ui/label';
 import { Listbox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-
 export function WallSheet() {
-	const [totalSquareFootage, setTotalSquareFootage] = useState(0);
-	const [pricePerSheet, setPricePerSheet] = useState(0);
+	const [totalSquareFootage, setTotalSquareFootage] = useState('');
+	const [pricePerSheet, setPricePerSheet] = useState('');
 	const [sheetSize, setSheetSize] = useState<'4x8' | '4x12'>('4x8');
-	const [extraAndWaste, setExtraAndWaste] = useState(1.1);
-	const [numberOfSheets, setNumberOfSheets] = useState(0);
-	const [totalCost, setTotalCost] = useState(0);
-	const [taxRate, setTaxRate] = useState(0);
-	const [finalCost, setFinalCost] = useState(0);
+	const [extraAndWaste, setExtraAndWaste] = useState('1.1');
+	const [numberOfSheets, setNumberOfSheets] = useState('');
+	const [totalCost, setTotalCost] = useState('0');
+	const [taxRate, setTaxRate] = useState('');
+	const [finalCost, setFinalCost] = useState('');
+
+	const [inputErrors, setInputErrors] = useState({
+		totalSquareFootage: false,
+		pricePerSheet: false,
+		extraAndWaste: false,
+		taxRate: false,
+	});
 
 	const calculateSheetsAndCost = () => {
+		const totalSqFt = parseFloat(totalSquareFootage);
+		const priceSheet = parseFloat(pricePerSheet);
+		// const extraWaste = extraAndWaste ? parseFloat(extraAndWaste) : 1; // Use 1 as the default value if extraAndWaste is not provided
+		const extraWaste = parseFloat(extraAndWaste) || 1; // Use 1 as the default value if extraAndWaste is not provided or NaN
+
+		const tax = parseFloat(taxRate);
+
 		let sheetCount = 0;
 		let cost = 0;
 
 		if (sheetSize === '4x8') {
-			sheetCount = Math.ceil((totalSquareFootage / 32) * extraAndWaste);
+			sheetCount = Math.ceil((totalSqFt / 32) * extraWaste);
 		} else if (sheetSize === '4x12') {
-			sheetCount = Math.ceil((totalSquareFootage / 48) * extraAndWaste);
+			sheetCount = Math.ceil((totalSqFt / 48) * extraWaste);
 		}
 
-		cost = sheetCount * pricePerSheet;
+		cost = sheetCount * priceSheet;
 
-		const taxAmount = cost * (taxRate / 100);
-		const totalCostWithTax = Math.round((cost + taxAmount) * 100) / 100; //rounded 2 decimals
-		// const totalCostWithTax = Number((cost+taxAmount).toFixed(2)) // returns same result
+		const taxAmount = cost * (tax / 100);
+		const totalCostWithTax = (cost + taxAmount).toFixed(2);
 
-		setNumberOfSheets(sheetCount);
-		setTotalCost(cost);
+		setNumberOfSheets(sheetCount.toString());
+		setTotalCost(cost.toFixed(2));
 		setFinalCost(totalCostWithTax);
+
+		// Check for error condition
+		// if (isNaN(extraWaste) || extraWaste === 0 || extraAndWaste.trim() === '') {
+		// 	setExtraAndWasteError(true);
+		// } else {
+		// 	setExtraAndWasteError(false);
+		// }
+
+		const errors = {
+			totalSquareFootage: isNaN(totalSqFt) || totalSqFt <= 0,
+			pricePerSheet: isNaN(priceSheet) || priceSheet <= 0,
+			extraAndWaste: isNaN(extraWaste) || extraWaste === 0,
+			taxRate: isNaN(tax) || tax < 0,
+		};
+
+		setInputErrors(errors);
 	};
 
 	const resetForm = () => {
-		setTotalSquareFootage(0);
-		setPricePerSheet(0);
+		setTotalSquareFootage('');
+		setPricePerSheet('');
 		setSheetSize('4x8');
-		setExtraAndWaste(1.1);
-		setTaxRate(0);
-		setNumberOfSheets(0);
-		setTotalCost(0);
-		setFinalCost(0);
+		setExtraAndWaste('');
+		setTaxRate('');
+		setNumberOfSheets('');
+		setTotalCost('');
+		setFinalCost('');
 	};
 
 	return (
@@ -70,21 +98,47 @@ export function WallSheet() {
 							<Label htmlFor='name'>Total Square Footage</Label>
 							<Input
 								placeholder='enter sqft'
-								type='number'
+								type='text'
 								value={totalSquareFootage}
-								onChange={(e) =>
-									setTotalSquareFootage(parseInt(e.target.value, 10))
-								}
+								onChange={(e) => {
+									const value = e.target.value.trim();
+									setTotalSquareFootage(value);
+									setInputErrors((errors) => ({
+										...errors,
+										totalSquareFootage:
+											value !== '' &&
+											(isNaN(parseFloat(value)) || parseFloat(value) <= 0),
+									}));
+								}}
 							/>
+							{inputErrors.totalSquareFootage && (
+								<p className='text-red-500 text-sm'>
+									Invalid value. Please enter a valid number
+								</p>
+							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>Price per sheet</Label>
 							<Input
 								placeholder='enter price per sheet'
-								type='number'
+								type='text'
 								value={pricePerSheet}
-								onChange={(e) => setPricePerSheet(parseFloat(e.target.value))}
+								onChange={(e) => {
+									const value = e.target.value.trim();
+									setPricePerSheet(value);
+									setInputErrors((errors) => ({
+										...errors,
+										pricePerSheet:
+											value !== '' &&
+											(isNaN(parseFloat(value)) || parseFloat(value) <= 0),
+									}));
+								}}
 							/>
+							{inputErrors.pricePerSheet && (
+								<p className='text-red-500 text-sm'>
+									Invalid value. Please enter a valid number
+								</p>
+							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>Sheet Size</Label>
@@ -128,10 +182,24 @@ export function WallSheet() {
 							</Label>
 							<Input
 								placeholder='enter extra'
-								type='number'
+								type='text'
 								value={extraAndWaste}
-								onChange={(e) => setExtraAndWaste(parseFloat(e.target.value))}
+								onChange={(e) => {
+									const value = e.target.value.trim();
+									setExtraAndWaste(value);
+									setInputErrors((errors) => ({
+										...errors,
+										extraAndWaste:
+											value !== '' &&
+											(isNaN(parseFloat(value)) || parseFloat(value) === 0),
+									}));
+								}}
 							/>
+							{inputErrors.extraAndWaste && (
+								<p className='text-red-500 text-sm'>
+									Invalid value. Please enter a valid number
+								</p>
+							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='name'>
@@ -139,10 +207,24 @@ export function WallSheet() {
 							</Label>
 							<Input
 								placeholder='tax %'
-								type='number'
+								type='text'
 								value={taxRate}
-								onChange={(e) => setTaxRate(parseFloat(e.target.value))}
+								onChange={(e) => {
+									const value = e.target.value.trim();
+									setTaxRate(value);
+									setInputErrors((errors) => ({
+										...errors,
+										taxRate:
+											value !== '' &&
+											(isNaN(parseFloat(value)) || parseFloat(value) < 0),
+									}));
+								}}
 							/>
+							{inputErrors.taxRate && (
+								<p className='text-red-500 text-sm'>
+									Invalid value. Please enter a valid number
+								</p>
+							)}
 						</div>
 						<div className='border px-4 py-4 font-mono text-base font-semibold'>
 							Number of Sheets:{' '}
