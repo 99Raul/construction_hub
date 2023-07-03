@@ -158,10 +158,12 @@ const FlooringCalculator: React.FC = ({}) => {
 							{totalTilesNeeded}
 						</span>
 					</div>
-					<Button onClick={calculateFlooring}>Calculate</Button>
-					<Button onClick={resetFields} className='bg-red-400'>
-						Reset
-					</Button>
+					<div className='flex justify-between'>
+						<Button onClick={calculateFlooring}>Calculate</Button>
+						<Button onClick={resetFields} className='bg-red-400'>
+							Reset
+						</Button>
+					</div>
 				</div>
 			</CardContent>
 		</Card>
