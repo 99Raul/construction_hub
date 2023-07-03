@@ -151,9 +151,10 @@ const TileCalculator: React.FC = () => {
 			<CardContent>
 				<div className='grid w-full items-center gap-4'>
 					<h3>Square or Rectangular Area</h3>
-					<label>
+					<label htmlFor='inches'>
 						<input
 							type='radio'
+							id='inches'
 							value='inches'
 							checked={isInches}
 							onChange={handleUnitChange}
@@ -161,9 +162,10 @@ const TileCalculator: React.FC = () => {
 						/>
 						Inches
 					</label>
-					<label>
+					<label htmlFor='feet'>
 						<input
 							type='radio'
+							id='feet'
 							value='feet'
 							checked={!isInches}
 							onChange={handleUnitChange}
@@ -172,9 +174,10 @@ const TileCalculator: React.FC = () => {
 						Feet
 					</label>
 					<div className='flex flex-col space-y-1.5'>
-						<Label htmlFor='name'>Length</Label>
+						<Label htmlFor='length'>Length</Label>
 						<Input
 							type='number'
+							id='length'
 							step='any'
 							placeholder='enter length'
 							value={length !== null ? length : ''}
@@ -183,9 +186,10 @@ const TileCalculator: React.FC = () => {
 					</div>
 					<div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>Width</Label>
+							<Label htmlFor='width'>Width</Label>
 							<Input
 								type='number'
+								id='width'
 								step='any'
 								placeholder='enter width'
 								value={width !== null ? width : ''}
@@ -208,7 +212,7 @@ const TileCalculator: React.FC = () => {
 							<div>
 								<div className='flex flex-col space-y-1.5'>
 									<div className='flex flex-row'>
-										<Label htmlFor='name' className='mt-1 mr-3'>
+										<Label htmlFor='area' className='mt-1 mr-3'>
 											Tile Area &#123; in square inches &#125;:
 										</Label>
 										<Popover>
@@ -242,6 +246,7 @@ const TileCalculator: React.FC = () => {
 									)}
 
 									<Input
+										id='area'
 										type='number'
 										step='any'
 										value={tileArea}
@@ -258,9 +263,10 @@ const TileCalculator: React.FC = () => {
 							{tileCount > 0 && (
 								<>
 									<div className='flex flex-col space-y-1.5'>
-										<Label>Overage/Material Waste (%):</Label>
+										<Label htmlFor='waste'>Overage/Material Waste (%):</Label>
 										<Input
 											type='number'
+											id='waste'
 											step='any'
 											value={overage}
 											onChange={(e) => setOverage(parseInt(e.target.value))}
@@ -337,9 +343,10 @@ const TileCalculator: React.FC = () => {
 						Feet
 					</label>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Diameter:</Label>
+						<Label htmlFor='diameter'>Diameter:</Label>
 						<Input
 							type='number'
+							id='diameter'
 							step='any'
 							placeholder='enter diameter'
 							value={diameter !== null ? diameter : ''}

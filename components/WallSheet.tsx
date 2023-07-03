@@ -106,9 +106,10 @@ export function WallSheet() {
 				<form>
 					<div className='grid w-full items-center gap-4'>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>Total Square Footage</Label>
+							<Label htmlFor='footage'>Total Square Footage</Label>
 							<Input
 								placeholder='enter sqft'
+								id='footage'
 								type='text'
 								value={totalSquareFootage}
 								onChange={(e) => {
@@ -129,10 +130,11 @@ export function WallSheet() {
 							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>Price per sheet</Label>
+							<Label htmlFor='price'>Price per sheet</Label>
 							<Input
 								placeholder='enter price per sheet'
 								type='text'
+								id='price'
 								value={pricePerSheet}
 								onChange={(e) => {
 									const value = e.target.value.trim();
@@ -152,7 +154,7 @@ export function WallSheet() {
 							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>Sheet Size</Label>
+							<Label htmlFor='sheet_size'>Sheet Size</Label>
 							<Select
 								onValueChange={(value) => handleSheetChange(value)}
 								value={sheetSize}
@@ -169,11 +171,12 @@ export function WallSheet() {
 							</Select>
 						</div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>
+							<Label htmlFor='waste'>
 								Extra/Waste % &#123;change to liking&#125;
 							</Label>
 							<Input
 								placeholder='enter extra'
+								id='waste'
 								type='text'
 								value={extraAndWaste}
 								onChange={(e) => {
@@ -194,11 +197,12 @@ export function WallSheet() {
 							)}
 						</div>
 						<div className='flex flex-col space-y-1.5'>
-							<Label htmlFor='name'>
+							<Label htmlFor='tax'>
 								Tax Rate % &#123;change to own state tax&#125;
 							</Label>
 							<Input
 								placeholder='tax %'
+								id='tax'
 								type='text'
 								value={taxRate}
 								onChange={(e) => {

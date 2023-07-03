@@ -48,9 +48,11 @@ export default function MyListBox() {
 
 	return (
 		<div className='w-full'>
-			<p className='mt-2 mb-2  text-gray-500 md:text-xl'>
-				Choose calculators for your project
-			</p>
+			<div>
+				<p className='mt-2 mb-2  text-gray-500 md:text-xl'>
+					Choose calculators for your project
+				</p>
+			</div>
 			<Listbox value={selectedOption} onChange={handleOptionChange}>
 				<div className='relative mt-1'>
 					<Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>

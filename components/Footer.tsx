@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Footer() {
 	return (
 		<div className='flex flex-row w-full border-t py-5 text-center justify-center'>
-			<p className='flex'>
+			<div className='flex'>
 				Github
 				<div className='flex ml-2'>
 					<Link
@@ -16,7 +16,7 @@ export default function Footer() {
 						<Github />
 					</Link>
 				</div>
-			</p>
+			</div>
 		</div>
 	);
 }

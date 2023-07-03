@@ -90,9 +90,11 @@ const FlooringCalculator: React.FC = ({}) => {
 			<CardContent>
 				<div className='grid w-full items-center gap-4'>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Area Length:</Label>
+						<Label htmlFor='length'>Area Length:</Label>
 						<Input
 							type='text'
+							id='length'
+							placeholder='enter area length'
 							value={length}
 							onChange={(e) => setLength(e.target.value)}
 						/>
@@ -101,9 +103,11 @@ const FlooringCalculator: React.FC = ({}) => {
 						)}
 					</div>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Area Width:</Label>
+						<Label htmlFor='width'>Area Width:</Label>
 						<Input
 							type='text'
+							placeholder='enter area width'
+							id='width'
 							value={width}
 							onChange={(e) => setWidth(e.target.value)}
 						/>
@@ -112,9 +116,11 @@ const FlooringCalculator: React.FC = ({}) => {
 						)}
 					</div>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Floor Tile Length (inches):</Label>
+						<Label htmlFor='tile_length'>Floor Tile Length (inches):</Label>
 						<Input
 							type='text'
+							id='tile_length'
+							placeholder='enter tile length'
 							value={tileLength}
 							onChange={(e) => setTileLength(e.target.value)}
 						/>
@@ -123,9 +129,11 @@ const FlooringCalculator: React.FC = ({}) => {
 						)}
 					</div>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Floor Tile Width (inches):</Label>
+						<Label htmlFor='tile_width'>Floor Tile Width (inches):</Label>
 						<Input
 							type='text'
+							id='tile_width'
+							placeholder='enter tile width'
 							value={tileWidth}
 							onChange={(e) => setTileWidth(e.target.value)}
 						/>
@@ -134,9 +142,11 @@ const FlooringCalculator: React.FC = ({}) => {
 						)}
 					</div>
 					<div className='flex flex-col space-y-1.5'>
-						<Label>Tiles per Box:</Label>
+						<Label htmlFor='tile_box'>Tiles per Box:</Label>
 						<Input
 							type='text'
+							id='tile_box'
+							placeholder='enter tiles per box'
 							value={tilesPerBox}
 							onChange={(e) => setTilesPerBox(e.target.value)}
 						/>

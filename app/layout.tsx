@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
 	title: 'Create Next App',
 	description: 'Manage your project',
-	
 };
 
 export default function RootLayout({
@@ -19,17 +18,20 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en'>
-			<body className={inter.className}>
-				<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-					<Navbar />
-
-					<main className='flex min-h-screen w-full flex-col items-center justify-center py-32 '>
-						{children}
-					</main>
-					<Footer />
-				</ThemeProvider>
-			</body>
-		</html>
+		<>
+			<html lang='en' suppressHydrationWarning>
+				<body className={inter.className}>
+					<div>
+						<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+							<Navbar />
+							<main className='flex min-h-screen w-full flex-col items-center justify-center py-32 '>
+								{children}
+							</main>
+							<Footer />
+						</ThemeProvider>
+					</div>
+				</body>
+			</html>
+		</>
 	);
 }

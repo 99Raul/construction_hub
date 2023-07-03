@@ -165,19 +165,8 @@ export function CardCalc() {
 					<div className='grid w-full items-center gap-4'>
 						<div className='flex flex-col space-y-1.5'>
 							<div className='flex flex-row'>
-								<Label htmlFor='name' className='mt-2'>
+								<Label htmlFor='length' className='mt-2'>
 									Length
-									{/* <select
-										name='lengthUnit'
-										value={lengthUnit}
-										onChange={handleUnitChange}
-										className='bg-blue-500 rounded-sm ml-2 border-gray-400 font-semibold appearance:none'
-									>
-										<option value='feet'>Ft</option>
-										<option value='inches'>in</option>
-										<option value='meters'>Meters</option>
-										<option value='yards'>Yards</option>
-									</select> */}
 								</Label>
 
 								<Select
@@ -200,6 +189,7 @@ export function CardCalc() {
 							</div>
 							<Input
 								name='length'
+								id='length'
 								placeholder='enter height'
 								value={length}
 								type='text'
@@ -212,7 +202,7 @@ export function CardCalc() {
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<div className='flex flex-row'>
-								<Label htmlFor='name' className='mt-2'>
+								<Label htmlFor='width' className='mt-2'>
 									Width
 								</Label>
 								<Select
@@ -235,6 +225,7 @@ export function CardCalc() {
 							</div>
 							<Input
 								name='width'
+								id='width'
 								placeholder='enter width'
 								value={width}
 								type='text'
@@ -246,12 +237,13 @@ export function CardCalc() {
 						</div>
 						<div className='flex flex-col space-y-1.5'>
 							<div className='flex flex-row'>
-								<Label htmlFor='name' className='mt-2'>
+								<Label htmlFor='depth' className='mt-2'>
 									Depth Inches
 								</Label>
 							</div>
 							<Input
 								name='depth'
+								id='depth'
 								placeholder='enter depth'
 								value={depth}
 								type='text'
