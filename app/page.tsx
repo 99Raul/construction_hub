@@ -1,19 +1,13 @@
-// import { WallSheet } from '@/components/WallSheet';
-// import { CardCalc } from '@/components/CardCalc';
+import Link from 'next/link';
 import Image from 'next/image';
 import Balancer from 'react-wrap-balancer';
-import SelectTwo from '@/components/SelectTwo';
+// import SelectTwo from '@/components/SelectTwo';
 import MyListBox from '@/components/MyListBox';
-import Navbar from '@/components/Navbar';
 
 export default function Home() {
 	return (
 		<>
-			{/* <div className='w-full'>
-
-		<Navbar />
-		</div> */}
-			<div className='z-10 w-full max-w-xl px-5 xl:px-0'>
+			<div className=' w-full max-w-xl px-5 xl:px-0'>
 				<h1 className='bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em]  md:text-7xl md:leading-[5rem]'>
 					<Balancer>Manage and calculate projects</Balancer>
 				</h1>

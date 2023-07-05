@@ -1,4 +1,4 @@
-import Navbar from './Navbar';
+import Navbar from './navigation/Navbar';
 import Footer from './Footer';
 
 export { Navbar, Footer };

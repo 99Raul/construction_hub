@@ -32,7 +32,7 @@ export function SideMenu() {
 			{SHEET_SIDES.map((side) => (
 				<Sheet key={side}>
 					<SheetTrigger asChild>
-						<Button variant='ghost' size='default' className='sm:hidden '>
+						<Button variant='ghost' size='default' className='lg:hidden '>
 							<Menu />
 						</Button>
 					</SheetTrigger>

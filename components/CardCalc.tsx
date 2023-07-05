@@ -52,6 +52,7 @@ export function CardCalc() {
 	// 	}
 	// };
 
+	// for unit select field shad ui
 	const handleUnitChange = (value: string, name: string) => {
 		if (name === 'lengthUnit') {
 			setLengthUnit(value);
@@ -62,6 +63,7 @@ export function CardCalc() {
 		}
 	};
 
+	// for entering inputs 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 
